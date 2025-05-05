@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit to Google Sheet</title>
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+
+      const formData = {
+        fullname: document.getElementById('fullname').value,
+        age: document.getElementById('age').value,
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        comments: document.getElementById('comments').value,
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbz5oiEtUVyFFWY9Jgpy1hzOrQUcqq5m58Vjbnj78_gV9B3lXOOMRlfa1WTwrBLa-6rZ/exec', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        contentType: 'application/json',
+      })
+      .then(response => alert("Form submitted successfully!"))
+      .catch(error => alert("Error submitting form"));
+    }
+  </script>
+</head>
+<body>
+  <h2>Participant Information Form</h2>
+  <form onsubmit="submitForm(event)">
+    <label for="fullname">Full Name:</label><br>
+    <input type="text" id="fullname" name="fullname" required><br><br>
+
+    <label for="age">Age:</label><br>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label>Gender:</label><br>
+    <input type="radio" name="gender" value="Male" required> Male
+    <input type="radio" name="gender" value="Female"> Female<br><br>
+
+    <label for="comments">Comments:</label><br>
+    <textarea id="comments" name="comments" rows="4" cols="40"></textarea><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
